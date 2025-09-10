@@ -23,8 +23,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, fmt.Errorf("неправильное количество данных")
 	}
 
-	stepsStr := strings.TrimSpace(dataStorage[0])
-	steps, err := strconv.Atoi(stepsStr)
+	steps, err := strconv.Atoi(dataStorage[0])
 	if err != nil {
 		return 0, 0, err
 	}
@@ -32,8 +31,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 		return 0, 0, fmt.Errorf("неправильное количество шагов")
 	}
 
-	durationStr := strings.TrimSpace(dataStorage[1])
-	duration, err := time.ParseDuration(durationStr)
+	duration, err := time.ParseDuration(dataStorage[1])
 	if err != nil {
 		return 0, 0, err
 	}

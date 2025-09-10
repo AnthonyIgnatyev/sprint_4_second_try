@@ -1,6 +1,8 @@
 package spentcalories
 
 import (
+	"fmt"
+	"strings"
 	"time"
 )
 
@@ -15,6 +17,11 @@ const (
 
 func parseTraining(data string) (int, string, time.Duration, error) {
 	// TODO: реализовать функцию
+	dataStorage := strings.Split(data, ",")
+	if len(dataStorage) != 3 {
+		return 0, "", 0, fmt.Errorf("неправильное количество данных")
+	}
+
 }
 
 func distance(steps int, height float64) float64 {
