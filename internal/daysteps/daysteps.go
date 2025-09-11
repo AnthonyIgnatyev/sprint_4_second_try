@@ -2,6 +2,7 @@ package daysteps
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -20,6 +21,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	// TODO: реализовать функцию
 	dataStorage := strings.Split(data, ",")
 	if len(dataStorage) != 2 {
+		log.Println("неправильное количество данных")
 		return 0, 0, fmt.Errorf("неправильное количество данных")
 	}
 
@@ -27,13 +29,15 @@ func parsePackage(data string) (int, time.Duration, error) {
 	if err != nil {
 		return 0, 0, err
 	}
-	if steps <= 0 {
-		return 0, 0, fmt.Errorf("неправильное количество шагов")
-	}
 
 	duration, err := time.ParseDuration(dataStorage[1])
 	if err != nil {
 		return 0, 0, err
+	}
+
+	if steps <= 0 || duration <= 0 {
+		log.Println("Отрицательные значения шагов или длительности")
+		return 0, 0, fmt.Errorf("Отрицательные значения шагов или длительности")
 	}
 	return steps, duration, nil
 }
@@ -45,6 +49,7 @@ func DayActionInfo(data string, weight, height float64) string {
 		return ""
 	}
 	if steps <= 0 || duration <= 0 {
+		log.Println("Отрицательные значения шагов или длительности")
 		return ""
 	}
 
@@ -56,6 +61,6 @@ func DayActionInfo(data string, weight, height float64) string {
 		return fmt.Sprint("Ошибка при расчете калорий: ", err)
 	}
 
-	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.", steps, distanceKm, calories)
+	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", steps, distanceKm, calories)
 
 }
